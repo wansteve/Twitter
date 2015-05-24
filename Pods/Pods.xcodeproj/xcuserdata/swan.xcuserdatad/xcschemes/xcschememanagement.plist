@@ -14,6 +14,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-NSDateMinimalTimeAgo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7E1C62BEB32796180031D990</key>
+		<key>4358F3FBE79B279CF88CBE39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8312EC6180705C0F865E69DD</key>
+		<key>5993586DCBC7B8CB5D86E5F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0EE393417601FC9C991D0A1</key>
+		<key>7B0D7376AB064FE6E1EB766C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A78E8EE8BCD176A067EB3123</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ADEF15EED627CE3B03134C31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E6B1D76C6034F07CABADBED3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

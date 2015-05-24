@@ -15,6 +15,8 @@ let twitterConsumerSecret = "M0lDng9LwKfikAoi54hXtgNDd6IpkQqns31hftYIgnH3ko4ny3"
 // let twitterConsumerKey = "Zwi6PYVjgkXwXhodsla7jVaz9"
 // let twitterConsumerSecret = "DCtIS3p2kgslg7vqBAWXqzTPvejfhy5KPTm91yhiAapa3acSqv"
 
+// testing
+
 let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1RequestOperationManager {
@@ -46,13 +48,39 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             
             
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Failed to getting home timeline")
+                println("Failed to getting home timeline \(error)")
                 completion(tweets: nil, error: error)
 
         })
         
         
     } // homeTimeLineWithParams
+    
+    
+    func postStatusUpdateWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        self.POST("1.1/statuses/update.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error posting status update")
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+    
+    // retweet
+    func retweetWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        self.POST("1.1/statuses/retweet/241259202004267009.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error retweeting")
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+    
+    
     
     // a func which takes a completion block or closure (user, error) and returns nothing
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ())
