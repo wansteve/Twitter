@@ -34,6 +34,38 @@ class TweetsTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func onRetweetTap(sender: AnyObject) {
+        
+        println("retweet tweet ID is \(self.tweet?.id)")
+        var msgid = self.tweet?.id
+        
+        TwitterClient.sharedInstance.retweetWithParams(nil, msgid: msgid!, completion: { (tweet, error) -> () in
+            if error != nil {
+                NSLog("error retweeting2: \(error)")
+                return
+            }
+            // NSNotificationCenter.defaultCenter().postNotificationName(TwitterEvents.TweetPosted, object: status)
+            
+        })
+        
+        
+    }// onRetweetTap
+    
+    
+    @IBAction func onFavoriteTap(sender: AnyObject) {println("favorite tweet ID is \(self.tweet?.id)")
+        var msgid = self.tweet?.id
+        
+        TwitterClient.sharedInstance.favoriteWithParams(nil, msgid: msgid!, completion: { (tweet, error) -> () in
+            if error != nil {
+                NSLog("error favoriting2: \(error)")
+                return
+            }
+        })
+        
+    }// onFavoriteTap
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

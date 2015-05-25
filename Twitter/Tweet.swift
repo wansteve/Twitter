@@ -13,6 +13,10 @@ class Tweet: NSObject {
     var text:String?
     var createdAtString: String?
     var createdAt: NSDate?
+    var numberOfFavorites:String?
+    var numberOfRetweets:String?
+    var id:String?
+    
     
     init(dictionary: NSDictionary) {
         
@@ -20,9 +24,15 @@ class Tweet: NSObject {
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String // when you are not sure if the downcast will succeed. This form of the operator will always return an optional value, and the value will be nil if the downcast was not possible. This enables you to check for a successful downcast.
         
+        numberOfRetweets = dictionary["retweet_count"] as? String
+        numberOfFavorites = dictionary["favorite_count"] as? String
+        id = dictionary["id_str"] as? String
+
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
         createdAt = formatter.dateFromString(createdAtString!) // since createdAtString is an option type String, need to unwrap it to String first before passing to dateFromString
+        
+
         
     } // init
     

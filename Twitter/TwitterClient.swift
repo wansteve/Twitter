@@ -34,16 +34,16 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     func homeTimeLineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            // println("home timeline: \(response)")
+             println("home timeline: \(response)")
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary]) // standard way of extracting from an array of dictionary to array of tweets is that initialize an array of tweets with an array of dictionary
             
             completion(tweets: tweets, error: nil)
             
-            /*
+            
             for tweet in tweets {
                 println("text: \(tweet.text) created: \(tweet.createdAt)")
             }
-            */
+            
             
             
             
@@ -69,15 +69,43 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     
     
     // retweet
-    func retweetWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    func retweetWithParams(params: NSDictionary?, msgid: String, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        self.POST("1.1/statuses/retweet/\(msgid).json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error retweeting1")
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+   
+    // reply
+    func replyWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
         self.POST("1.1/statuses/retweet/241259202004267009.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             var tweet = Tweet(dictionary: response as! NSDictionary)
             completion(tweet: tweet, error: nil)
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("error retweeting")
+                println("error replying1")
                 completion(tweet: nil, error: error)
         }
     }
+    
+ 
+    // favorite
+    func favoriteWithParams(params: NSDictionary?, msgid: String, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        
+        
+        self.POST("1.1/favorites/create.json?id=\(msgid)", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error favoriting1")
+                completion(tweet: nil, error: error)
+        }
+    }
+    
+    
     
     
     

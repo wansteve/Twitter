@@ -29,7 +29,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         self.profileImage.layer.cornerRadius = 9.0
         self.profileImage.layer.masksToBounds = true
         self.nameLabel.text = User.currentUser?.name
-        self.screennameLabel.text = "@\(User.currentUser!.screenname)"
+        self.screennameLabel.text = User.currentUser!.screenname
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardDidShowNotification, object: nil, queue: nil) { (notification: NSNotification!) -> Void in
             let userInfo = notification.userInfo!
@@ -43,7 +43,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             self.view.frame = CGRectMake(0, 0, keyboardFrameEnd.size.width, keyboardFrameEnd.origin.y)
         }
         
-        self.remainingCharactersLabel.text = "\(MAX_CHARACTERS_ALLOWED)"
+        self.remainingCharactersLabel.text = "\(MAX_CHARACTERS_ALLOWED) characters left"
         
         self.textView.becomeFirstResponder()
     }

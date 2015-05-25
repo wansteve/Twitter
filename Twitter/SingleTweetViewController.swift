@@ -48,15 +48,62 @@ class SingleTweetViewController: UIViewController {
         // self.timeLabel.text = newValue?.createdAt!.timeAgo()
 
         
-        // self.retweetNumberLabel.text = "\(self.tweet?.numberOfRetweets)"
-        // self.favoriteNumberLabel.text = "\(self.tweet?.numberOfFavorites)"
+         //self.retweetNumberLabel.text = "\(self.tweet?.numberOfRetweets)"
+         //self.favoriteNumberLabel.text = "\(self.tweet?.numberOfFavorites)"
         
         // self.dateLabel.text = "12 min ago"
-        self.retweetNumberLabel.text = "Retweet Number"
-        self.favoriteNumberLabel.text = "Favorite Number"
+        //self.retweetNumberLabel.text = "Retweet Number"
+        //self.favoriteNumberLabel.text = "Favorite Number"
         
     }
 
+    @IBAction func onReplyTap(sender: AnyObject) {
+        
+        TwitterClient.sharedInstance.replyWithParams(nil, completion: { (tweet, error) -> () in
+            if error != nil {
+                NSLog("error replying2: \(error)")
+                return
+            }
+        
+        })
+    }
+    
+    
+    @IBAction func onFavoriteTap(sender: AnyObject) {
+
+        
+        println("favorite tweet ID is \(self.tweet?.id)")
+        var msgid = self.tweet?.id
+        
+        TwitterClient.sharedInstance.favoriteWithParams(nil, msgid: msgid!, completion: { (tweet, error) -> () in
+            if error != nil {
+                NSLog("error favoriting2: \(error)")
+                return
+            }
+        })
+    
+    }// onFavoriteTap
+    
+    
+    @IBAction func onRetweetTap(sender: AnyObject) {
+    
+        println("retweet tweet ID is \(self.tweet?.id)")
+        var msgid = self.tweet?.id
+        
+        TwitterClient.sharedInstance.retweetWithParams(nil, msgid: msgid!, completion: { (tweet, error) -> () in
+            if error != nil {
+                NSLog("error retweeting2: \(error)")
+                return
+            }
+            // NSNotificationCenter.defaultCenter().postNotificationName(TwitterEvents.TweetPosted, object: status)
+
+        })
+        
+ 
+    }// onRetweetTap
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
